@@ -31,6 +31,7 @@ const httpLink = new HttpLink({
   },
 });
 
+//รวม Link
 const link = ApolloLink.from([errorLink, httpLink]);
 
 const client = new ApolloClient({

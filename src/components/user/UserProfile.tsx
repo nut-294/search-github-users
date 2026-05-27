@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client/react";
 import { GET_USER } from "@/queries";
 import type { UserData } from "@/types";
+import UserCard from "./UserCard";
+import StatsContainer from "./StatsContainer";
 
 type UserProfileProps = {
   userName: string;
@@ -8,6 +10,7 @@ type UserProfileProps = {
 
 const UserProfile = ({ userName }: UserProfileProps) => {
   const { data, loading, error } = useQuery<UserData>(GET_USER, {
+    //ส่งตัวแปรเข้า GraphQL query
     variables: { login: userName },
   });
 
@@ -28,7 +31,13 @@ const UserProfile = ({ userName }: UserProfileProps) => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold">{bio}</h1>
+      <UserCard avatarUrl={avatarUrl} name={name} bio={bio} url={url} />
+      <StatsContainer
+        totalRepos={repositories.totalCount}
+        followers={followers.totalCount}
+        following={following.totalCount}
+        gists={gists.totalCount}
+      />
     </div>
   );
 };
